@@ -9,9 +9,9 @@ interface Result {
 }
 
 const parseExerciseArguments = (args: string[]) => {
-  if (args.length < 4) throw new Error('Not enough arguments');
+  if (args.length < 4) throw new Error('Not enough arguments to count exercise');
 
-  const metricsArray = args.slice(2, args.length).map(Number);
+  const metricsArray = args.slice(2).map(Number);
   const isNan = metricsArray.some(isNaN);
 
   if (!isNan) {
@@ -19,7 +19,7 @@ const parseExerciseArguments = (args: string[]) => {
   } else {
     throw new Error('One or more of the provided values were not numbers!');
   }
-}
+};
 
 const calculateExercises = (ogTarget: number, dailyHours: number[]): Result => {
 
@@ -33,7 +33,7 @@ const calculateExercises = (ogTarget: number, dailyHours: number[]): Result => {
     } else {
       return 3;
     }
-  }
+  };
 
   const isSucces = (a: number, t: number) => {
     if (a < t) {
@@ -41,10 +41,10 @@ const calculateExercises = (ogTarget: number, dailyHours: number[]): Result => {
     } else {
       return true;
     }
-  }
+  };
 
   const periodLength: number = dailyHours.length;
-  const trainingDays: number = dailyHours.filter(function (e, i, a) { return e > 0; }).length;
+  const trainingDays: number = dailyHours.filter(function (e) { return e > 0; }).length;
   const target: number = ogTarget;
   const average: number = totalHours / periodLength;
   const success: boolean = isSucces(average, target);
@@ -59,14 +59,14 @@ const calculateExercises = (ogTarget: number, dailyHours: number[]): Result => {
     ratingDescription,
     target,
     average
-  }
-}
+  };
+};
 
 try {
-  let [first, ...rest] = parseExerciseArguments(process.argv);
+  const [first, ...rest] = parseExerciseArguments(process.argv);
   console.log(calculateExercises(first, rest));
 } catch (error: unknown) {
-  let errorMessage = 'Something bad happened.'
+  let errorMessage = 'Something bad happened.';
   if (error instanceof Error) {
     errorMessage += ' Error: ' + error.message;
   }
