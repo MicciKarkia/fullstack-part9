@@ -1,3 +1,5 @@
+import { isNotNumber } from "./utils";
+
 interface CalculateBmi {
   value1: number;
   value2: number;
@@ -7,7 +9,7 @@ const parseArguments = (args: string[]): CalculateBmi => {
   if (args.length < 4) throw new Error('Not enough arguments');
   if (args.length > 4) throw new Error('Too many arguments');
 
-  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+  if (!isNotNumber(args[2]) && !isNotNumber(args[3])) {
     return {
       value1: Number(args[2]),
       value2: Number(args[3])
@@ -17,7 +19,7 @@ const parseArguments = (args: string[]): CalculateBmi => {
   }
 }
 
-const calculateBmi = (height: number, weight: number) => {
+export const calculateBmi = (height: number, weight: number) => {
   const heightInM = height / 100;
   const squareHeight = heightInM * heightInM;
   const bmi = weight / squareHeight;
