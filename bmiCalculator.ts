@@ -23,26 +23,26 @@ export const calculateBmi = (height: number, weight: number) => {
   const heightInM = height / 100;
   const squareHeight = heightInM * heightInM;
   const bmi = weight / squareHeight;
-  switch(true) {
-    case (bmi <18.5):
+  switch (true) {
+    case (bmi < 18.5):
       return "Underweight";
-    case (bmi <25.0):
+    case (bmi < 25.0):
       return "Normal (healthy weight)";
-    case (bmi <30.0):
+    case (bmi < 30.0):
       return "Overweight";
-    case (bmi >=30.0):
+    case (bmi >= 30.0):
       return "Obese";
     default: throw new Error("error thrown at calculator");
   }
 };
 
-  try {
-    const { value1, value2 } = parseArguments(process.argv);
-    console.log(calculateBmi(value1, value2));
-  } catch (error: unknown) {
-    let errorMessage = 'Something went wrong: ';
-    if (error instanceof Error) {
-      errorMessage += error.message;
-    }
-    console.log(errorMessage);
+try {
+  const { value1, value2 } = parseArguments(process.argv);
+  console.log(calculateBmi(value1, value2));
+} catch (error: unknown) {
+  let errorMessage = 'Something went wrong: ';
+  if (error instanceof Error) {
+    errorMessage += error.message;
   }
+  console.log(errorMessage);
+}
