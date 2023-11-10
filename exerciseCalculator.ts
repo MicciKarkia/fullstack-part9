@@ -1,4 +1,4 @@
-interface Result {
+export interface Result {
   periodLength: number,
   trainingDays: number,
   success: boolean,
@@ -21,7 +21,7 @@ const parseExerciseArguments = (args: string[]) => {
   }
 };
 
-const calculateExercises = (ogTarget: number, dailyHours: number[]): Result => {
+export const calculateExercises = (ogTarget: number, dailyHours: number[]): Result => {
 
   const totalHours = dailyHours.reduce(function (a, b) { return a + b; });
 
