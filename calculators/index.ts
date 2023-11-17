@@ -29,18 +29,18 @@ app.post('/exercises', (req, res) => {
   }
 
   console.log(req.body);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { target, daily_exercises }: Exercises = req.body;
+  const { target, daily_exercises }: Exercises = req.body as { daily_exercises: number [], target: number };
 
-  if (!daily_exercises || !target) {
-    res.status(400).json({ error: "parameters missing" });
-  } else if (daily_exercises.some(isNaN) || isNaN(Number(target))) {
-    res.status(400).json({ error: "malformatted parameters" });
-  } else {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const result: Result = calculateExercises(target, daily_exercises);
-    res.json(result);
+  if (!daily_exercises || !target || daily_exercises.length === 0 ) {
+    return res.status(400).json({ error: "parameters missing" });
   }
+
+  if (daily_exercises.some(isNaN) || isNaN(Number(target))) {
+    return res.status(400).json({ error: "malformatted parameters" });
+  }
+
+  const result: Result = calculateExercises(target, daily_exercises);
+  return res.send(result);
 
 });
 
