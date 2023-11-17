@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/patients
+Content-Type: application/json
+
+{
+  "name": "Kajsa Anka",
+  "dateOfBirth": "1987-02-02",
+  "ssn": "020287-1234",
+  "gender": "Non-binary",
+  "occupation": "Entrepreneur"
+}
