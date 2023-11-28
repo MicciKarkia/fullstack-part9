@@ -17,10 +17,12 @@ const getPatientsNoSsn = (): PatientWithoutSsn[] => {
 };
 
 const addPatient = (newPatientData: NewPatient): Patient => {
-  const id:string = uuid();
 
+  if (allPatients.map(patient => patient.ssn).includes(newPatientData.ssn)) {
+    throw new Error("SSN is not unique");
+  }
   const newPatient = {
-    id: id,
+    id: uuid(),
     ...newPatientData
   };
 
