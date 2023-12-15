@@ -21,7 +21,6 @@ const App = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value)
     setNewDiary(prevData => ({ ...prevData, [name]: value }))
   }
 
@@ -38,10 +37,8 @@ const App = () => {
     }).catch((e: unknown) => {
       if (axios.isAxiosError(e) && e?.response?.data && typeof e?.response?.data === "string") {
         const message = e.response.data.replace('Something went wrong. Error: ', '');
-        console.error(message);
         setErrorMessage(message);
       } else {
-        console.error("Unknown error", e);
         setErrorMessage("Unknown error: " + e);
       }
     })
