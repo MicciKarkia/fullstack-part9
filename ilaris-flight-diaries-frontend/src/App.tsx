@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Diary, NewDiary } from './types';
+import { Diary, NewDiary, Weather, Visibility } from './types';
 import { getAllDiaries, createDiary } from './diaryService';
 
 const App = () => {
@@ -24,10 +24,10 @@ const App = () => {
     setNewDiary(prevData => ({ ...prevData, [name]: value }))
   }
 
-  /*const handleDropDownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDropDownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewDiary(prevData => ({ ...prevData, [name]: value }))
-  }*/
+  }
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -54,36 +54,31 @@ const App = () => {
     <>
       <h1>Ilari's flight diaries</h1>
       <h2>Add a new entry:</h2>
-      {errorMessage && <p style={{color:'red'}}>Error: {errorMessage}</p>}
+      {errorMessage && <p style={{ color: 'red' }}>Error: {errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           Date:
           <input
             name='date'
+            type='date'
             value={newDiary.date}
             onChange={handleChange}
           />
         </label>
         <br />
         <br />
-        <label>
-          Weather:
-          <input
-            name='weather'
-            value={newDiary.weather}
-            onChange={handleChange}
-          />
-        </label>
+        <label>Weather:</label>
+        <select name='weather' defaultValue={""} value={newDiary.weather} onChange={handleDropDownChange}>
+          <option disabled value={""}>Choose one</option>
+          {Object.values(Weather).map(v => <option value={v}>{v}</option>)}
+        </select>
         <br />
         <br />
-        <label>
-          Visibility:
-          <input
-            name='visibility'
-            value={newDiary.visibility}
-            onChange={handleChange}
-          />
-        </label>
+        <label>Visibility:</label>
+        <select name='visibility' defaultValue={""} value={newDiary.visibility} onChange={handleDropDownChange}>
+          <option disabled value={""}>Choose one</option>
+          {Object.values(Visibility).map(v => <option value={v}>{v}</option>)}
+        </select>
         <br />
         <br />
         <label>
@@ -124,20 +119,3 @@ const App = () => {
 
 export default App
 
-/*<label>Weather:</label>
-        <select name='weather' value={newDiary.weather} onChange={handleDropDownChange}>
-          <option value="sunny">Sunny</option>
-          <option value="rainy">Rainy</option>
-          <option value="cloudy">Cloudy</option>
-          <option value="windy">Windy</option>
-          <option value="stormy">Stormy</option>
-        </select>
-        <br />
-        <br />
-        <label>Visibility:</label>
-        <select name='visibility' value={newDiary.visibility} onChange={handleDropDownChange}>
-          <option value="great">Great</option>
-          <option value="good">Good</option>
-          <option value="ok">Ok</option>
-          <option value="poor">Poor</option>
-        </select>*/
